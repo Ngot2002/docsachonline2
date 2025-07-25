@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Đọc sách miễn phí</title>
+  <style>
+    body { display: flex; justify-content: center; align-items: center; height: 100vh; background: #f5f5f5; font-family: sans-serif; }
+    .card { background: white; padding: 2rem; border-radius: 1rem; box-shadow: 0 0 20px rgba(0,0,0,0.1); text-align: center; }
+    .btn { margin-top: 1rem; background: #007bff; color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer; }
+    .counter { margin-top: 1rem; color: #333; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>📖 Đọc sách miễn phí</h2>
+    <button class="btn" onclick="readBook()">Đọc ngay</button>
+    <div class="counter">🔥 Đã có <span id="view-count">...</span> lượt đọc</div>
+  </div>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyC1QnHGKZnKZtQ5XXSp85LGkKB95XYm5Ek",
+      authDomain: "docsach-a9ccd.firebaseapp.com",
+      databaseURL: "https://docsach-a9ccd-default-rtdb.firebaseio.com",
+      projectId: "docsach-a9ccd",
+      storageBucket: "docsach-a9ccd.firebasestorage.app",
+      messagingSenderId: "347611589574",
+      appId: "1:347611589574:web:955dea1c12f7deaec360c7"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const countRef = db.ref("viewCount");
+
+    function updateCount() {
+      countRef.transaction(current => (current || 0) + 1);
+      window.location.href = "https://heyzine.com/flip-book/d2e5ba5466.html";
+    }
+
+    function readBook() {
+      updateCount();
+    }
+
+    countRef.on("value", snapshot => {
+      const count = snapshot.val() || 0;
+      document.getElementById("view-count").textContent = count;
+    });
+  </script>
+</body>
+</html>
